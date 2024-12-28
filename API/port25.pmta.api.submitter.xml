@@ -1,0 +1,649 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AssemblyInfo</name>
+    </assembly>
+    <members>
+        <member name="T:port25.pmta.api.submitter.Connection">
+            <summary>
+            Connection being submitted through PowerMTA's submission API.
+            </summary>
+            <remarks>
+            Multiple messages may be submitted over one connection. 
+            A program may open multiple connections to one or more servers. 
+            A connection is opened on creation of the Connection object and 
+            must be explicitly closed using the <c>Close</c> method.
+            </remarks>
+            <threadsafety>
+            This class is thread-safe. Multiple submission attempts will be
+            synchronized by this class.
+            </threadsafety>
+        </member>
+        <member name="M:port25.pmta.api.submitter.Connection.#ctor(System.String,System.Int32)">
+            <summary>
+            Creates and opens a new Connection to the given host on the given
+            port.
+            </summary>
+            <param name="host">
+            Host name or numeric IP address of the host to connect to.
+            </param>
+            <param name="port">
+            Port number to connect to.
+            </param>
+            <exception cref="T:port25.pmta.api.submitter.ServiceException">
+            On network problems like the host refusing the connection.
+            </exception>
+        </member>
+        <member name="M:port25.pmta.api.submitter.Connection.#ctor(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Creates and opens a new Connection to the given host on the given
+            port, authentifying to the remote host with the given user name
+            and password.
+            </summary>
+            <param name="host">
+            Host name or numeric IP address of the host to connect to.
+            </param>
+            <param name="port">
+            Port number to connect to. 
+            By default, PowerMTA will run on port 25.
+            </param>
+            <param name="username">
+            User name for authentication with the given host. 
+            Passing <c>null</c> for both user name and password means not to
+            send authentication information.
+            </param>
+            <param name="password">
+            Password for that user name.
+            </param>
+            <exception cref="T:port25.pmta.api.submitter.ServiceException">
+            On network problems like the host refusing the connection
+            or on incorrect authentication information (user name / password).
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            If only one of username and password is provided.
+            </exception>
+        </member>
+        <member name="M:port25.pmta.api.submitter.Connection.Close">
+            <summary>
+            Closes the Connection, freeing any resources used by it.
+            </summary>
+            <remarks>
+            Once closed, no further messages cam be submitted over this 
+            Connection.
+            Closing a Connection more than once has no effect.
+            </remarks>
+        </member>
+        <member name="M:port25.pmta.api.submitter.Connection.Submit(port25.pmta.api.submitter.Message)">
+            <summary>
+            Submits a message for delivery.
+            </summary>
+            <remarks>
+            This method is synchronized so that a Connection can be shared
+            between threads.
+            </remarks>
+            <param name="msg">
+            The Message to submit.
+            </param>
+            <exception cref="T:port25.pmta.api.submitter.ServiceException">
+            On errors reported by the connected server, like access denied,
+            bad recipients, or security reasons.
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+            If the provided Message is <c>null</c>.
+            </exception>
+        </member>
+        <member name="M:port25.pmta.api.submitter.Connection.ThrowFriendlyMessage(port25.pmta.api.submitter.ServiceException,System.String)">
+            <summary>
+            Converts an SMTP response into a more helpful error message if the
+            message looks like a configuration problem for the 2.0 API.
+            A configuration problem means that the PowerMTA config does not 
+            allow mail merge, relaying (not detected), or authentication from
+            the sender's source.
+            </summary>
+            
+            <remarks>
+            This method should be called on checking PowerMTA's reply after
+            SMTP commands like XMRG or AUTH. If the API parses PowerMTA's list
+            of known commands in the EHLO response, a reloaded configuration
+            will not yields a nice message.
+            </remarks>
+            
+            <param name="se">
+            caught exception that's to be checked
+            </param>
+            <param name="dir">
+            what directive should be configured to fix the problem
+            </param>
+            <exception cref="T:port25.pmta.api.submitter.ServiceException">
+            this method <em>always</em> throws, either a ServiceException with
+            the original exception as a chained exception and with a user 
+            friendly error message, or the original exception
+            </exception>
+        </member>
+        <member name="T:port25.pmta.api.submitter.EmailAddressException">
+            <summary>
+            Indicates a syntactically invalid email address.
+            </summary>
+            <remarks>
+            Checks only email address syntax, not e.g., if the host actually exists.
+            </remarks>
+        </member>
+        <member name="P:port25.pmta.api.submitter.EmailAddressException.EmailAddress">
+            <summary>
+            Obtains the email address that triggered this exception.
+            </summary>
+        </member>
+        <member name="T:port25.pmta.api.submitter.ReturnType">
+            <summary>
+            Flag to indicate the desired return type for a Message.
+            </summary>
+            <remarks>
+            If no return type is specified, it is up to the mailer what will be
+            generated.
+            </remarks>
+        </member>
+        <member name="F:port25.pmta.api.submitter.ReturnType.NotSpecified">
+            <summary>
+            No return type specified; use PowerMTA's default.
+            </summary>
+        </member>
+        <member name="F:port25.pmta.api.submitter.ReturnType.Full">
+            <summary>
+            Include the full message with a delivery report.
+            </summary>
+        </member>
+        <member name="F:port25.pmta.api.submitter.ReturnType.Headers">
+            <summary>
+            Include only this message's headers in a delivery report.
+            </summary>
+        </member>
+        <member name="T:port25.pmta.api.submitter.Encoding">
+            <summary>
+            Possible encoding for data added to a Message.
+            </summary>
+            <remarks>
+            If no encoding is specified, <c>SevenBit</c> is assumed.
+            </remarks>
+        </member>
+        <member name="F:port25.pmta.api.submitter.Encoding.SevenBit">
+            <summary>
+            Indicates 7-bit encoded data.
+            </summary>
+        </member>
+        <member name="F:port25.pmta.api.submitter.Encoding.EightBit">
+            <summary>
+            Indicates 8-bit encoded data.
+            </summary>
+        </member>
+        <member name="F:port25.pmta.api.submitter.Encoding.Base64">
+            <summary>
+            Indicate that the content should be base-64 encoded on the fly.
+            Used for binary content.
+            </summary>
+        </member>
+        <member name="T:port25.pmta.api.submitter.Message">
+            <summary>
+            Represents a message being submitted through PowerMTA's submission API.
+            </summary>
+            <remarks>
+            Messages are submitted over Connections.
+            </remarks>
+            <threadsafety>
+            This class is safe for multi-threaded used.
+            </threadsafety>
+        </member>
+        <member name="M:port25.pmta.api.submitter.Message.#ctor(System.String)">
+            <summary>
+            Creates a new Message.
+            </summary>
+            <param name="mailfrom">
+            the sender's email address; this is used in the MAIL FROM.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If no sender was given.
+            </exception>
+        </member>
+        <member name="M:port25.pmta.api.submitter.Message.AddRecipient(port25.pmta.api.submitter.Recipient)">
+            <summary>
+            Adds a Recipient to this Message.
+            </summary>
+            <remarks>
+            If a Recipient is modified after being added to a Message and 
+            before the Message is submitted, that Recipient with that 
+            Message is changed.
+            </remarks>
+            <param name="rcpt">
+            Recipient to add.
+            </param>
+        </member>
+        <member name="M:port25.pmta.api.submitter.Message.AddData(System.Byte[])">
+            <summary>
+            Appends data to this message.
+            </summary>
+            <remarks>
+            Use this method to give this message both its headers and a body.
+            How the data you add is handled depends on the kind of encoding 
+            selected (<see cref="P:port25.pmta.api.submitter.Message.Encoding"/>).
+            All the data is entered as-is, with no mailmerge variable 
+            substitution being performed. To add mailmerge data, use 
+            <see cref="M:port25.pmta.api.submitter.Message.AddMergeData(System.Byte[])"/>.
+            </remarks>
+            <param name="data">
+            Data to append.
+            </param>
+        </member>
+        <member name="M:port25.pmta.api.submitter.Message.AddData(System.String)">
+            <summary>
+            Appends data to this message.
+            </summary>
+            This is a convenience method that allows adding Strings instead
+            of byte arrays. Strings are converted using a UTF8Encoding.
+            When sending non-7bit-ASCII data, make sure you add an appropriate
+            transfer encoding header to the message, so that the recipient 
+            knows what code page to use; for example:
+            <c>msg.AddData("Content-Type: text/plain; charset=\"utf-8"\n");</c>
+            <remarks>
+            <see cref="M:port25.pmta.api.submitter.Message.AddData(System.String)"/>
+            <see cref="T:System.Text.UTF8Encoding"/>
+            </remarks>
+            <param name="data">
+            String to append.
+            </param>
+        </member>
+        <member name="M:port25.pmta.api.submitter.Message.AddMergeData(System.String)">
+            <summary>
+            Appends mail-merge String to this message.
+            </summary>
+            This is a convenience method that allows adding Strings instead
+            of byte arrays. Strings are converted using a UTF8Encoding.
+            When sending non-7bit-ASCII data, make sure you add an appropriate
+            transfer encoding header to the message, so that the recipient 
+            knows what code page to use; for example:
+            <c>msg.AddData("Content-Type: text/plain; charset=\"utf-8"\n");</c>
+            <remarks>
+            <see cref="M:port25.pmta.api.submitter.Message.AddMergeData(System.String)"/>
+            <see cref="T:System.Text.UTF8Encoding"/>
+            </remarks>
+            <param name="data">
+            String to append.
+            </param>
+            <exception cref="T:System.InvalidOperationException">
+            If the current encoding is neither 7 nor 8 bit.
+            </exception>
+        </member>
+        <member name="M:port25.pmta.api.submitter.Message.AddMergeData(System.Byte[])">
+            <summary>
+            Appends merge data to this message.
+            </summary>
+            <remarks>
+            Use this method to give this message both its headers and a body.
+            How the data you add is handled depends on the kind of encoding
+            selected (<see cref="P:port25.pmta.api.submitter.Message.Encoding"/>). Currently only 7-bit and
+            8-bit encodings are supported.
+            If any mailmerge variables are included in the data, they will be
+            substituted by their respective values.
+            </remarks>
+            <param name="data">
+            Data to append.
+            </param>
+            <exception cref="T:System.InvalidOperationException">
+            If the current encoding is neither 7 nor 8 bit.
+            </exception>
+        </member>
+        <member name="M:port25.pmta.api.submitter.Message.AddDateHeader">
+            <summary>
+            Adds (appends) a <c>Date:</c> header to this Message.
+            </summary>
+            <remarks>
+            This method is provided as a convenience method only.
+            </remarks>
+        </member>
+        <member name="M:port25.pmta.api.submitter.Message.BeginPart(System.UInt32)">
+            <summary>
+            Starts the next mailmerge part which will have the given number.
+            </summary>
+            <remarks>
+            Note that part 1 is started automatically, so the first settable
+            number is 2.
+            </remarks>
+            <param name="part">
+            Positive integer for the part number. No part number may be
+            specified more than once.
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If the specified part number was already used.
+            </exception>
+        </member>
+        <member name="P:port25.pmta.api.submitter.Message.ReturnType">
+            <summary>
+            Sets or gets the return type for this Message.
+            </summary>
+            <value>
+            For possible values, see <see cref="P:port25.pmta.api.submitter.Message.ReturnType"/>.
+            </value>
+        </member>
+        <member name="P:port25.pmta.api.submitter.Message.Encoding">
+            <summary>
+            Sets the kind of encoding to perform on data. The encoding applies
+            to all thereafter added data.
+            </summary>
+            <value>
+            <para>The actual processing performed depends on the encoding 
+            selected: <see cref="F:port25.pmta.api.submitter.Encoding.SevenBit"/>
+            and <see cref="F:port25.pmta.api.submitter.Encoding.EightBit"/> both 
+            select the <i>identity</i> encoding, i.e., no transformation is 
+            performed on the data, except that any lines terminated with LF 
+            alone are converted to CRLF.
+            In the case of 7-bit encoding, it is your responsibility to ensure
+            that all bytes have their high bit off.
+            </para>
+            <para><see cref="F:port25.pmta.api.submitter.Encoding.Base64"/> 
+            specifies that anydata added shall be encoded on the fly using 
+            base-64 encoding.
+            No transformation is performed on the data prior to encoding,
+            making it possible to transmit binary content.  Note, however, that
+            to effectively transmit binary data, you must also provide the 
+            appropriate MIME headers.  In fact, the selected encoding should, 
+            in general, agree with the <c>Content-Transfer-Encoding</c> 
+            header you specify.
+            </para> 
+            <para>The default encooding (if this method is never invoked) is
+            <see cref="F:port25.pmta.api.submitter.Encoding.SevenBit"/>.
+            </para>
+            </value>
+        </member>
+        <member name="P:port25.pmta.api.submitter.Message.VirtualMTA">
+            <summary>
+            Sets or gets the Virtual Mail Transfer Agent to use for this
+            Message.
+            </summary>
+            <value>
+            The VMTA's name. This must agree with the configuration of the 
+            server that the email is submitted over.
+            </value>
+            <exception cref="T:port25.pmta.api.submitter.VariableSyntaxException">
+            If the VMTA name violates PowerMTA's rules for VMTA names.
+            It must be made of letters, digits, the underscore, dot, or dash
+            only.
+            </exception>
+        </member>
+        <member name="P:port25.pmta.api.submitter.Message.JobID">
+            <summary>
+            Sets or gets the job ID for this message. 
+            </summary>
+            <value>
+            The job ID tags this message to belong to the specified job.
+            </value>
+            <exception cref="T:port25.pmta.api.submitter.VariableSyntaxException">
+            If the job ID violates PowerMTA's sytnax rules for job IDs.
+            It may not contain spaces or the plus or quals sign.
+            </exception>
+        </member>
+        <member name="P:port25.pmta.api.submitter.Message.EnvID">
+            <summary>
+            Sets or gets the envelope ID for this message. 
+            </summary>
+            <value>
+            The envelope ID for use in this message.
+            </value>
+            <exception cref="T:port25.pmta.api.submitter.VariableSyntaxException">
+            If the env ID violates PowerMTA's sytnax rules for env IDs.
+            It may not contain spaces or the plus or quals sign.
+            </exception>
+        </member>
+        <member name="P:port25.pmta.api.submitter.Message.Verp">
+            <summary>
+            Sets or gets whether this message should use the VERP extension.
+            </summary>
+            <value>
+            If you enable VERP, PowerMTA will encode both the originator and 
+            recipient addresses in the originator address used for delivering 
+            the message.  This may make tracking any bounces easier, since you
+            can always derive the original addresses from the address where 
+            the bounce is sent.
+            </value>
+        </member>
+        <member name="T:port25.pmta.api.submitter.NamespaceDoc">
+            <summary>
+            The <c>port25.pmta.api.submitter</c> allows submitting messages to PowerMTA
+            over .NET.
+            </summary>
+            <remarks>
+            The basic steps are to first create one connection to PowerMTA. Then create a
+            Message, add Recipient(s) and data to it, and submit it over the Connection.
+            Repeat with the next message. Close the Connection when done. 
+            </remarks>
+        </member>
+        <member name="T:port25.pmta.api.submitter.Notify">
+            <summary>
+            Notification options for message delivery reports.
+            </summary>
+            <remarks>
+            These flags can be combined by a bitwise OR.
+            </remarks>
+        </member>
+        <member name="F:port25.pmta.api.submitter.Notify.Never">
+            <summary>
+            Do not send a delivery notification at all.
+            </summary>
+        </member>
+        <member name="F:port25.pmta.api.submitter.Notify.Success">
+            <summary>
+            Send a delivery notification upon successful delivery.
+            </summary>
+        </member>
+        <member name="F:port25.pmta.api.submitter.Notify.Failure">
+            <summary>
+            Send a delivery notification if delivery failed.
+            </summary>
+        </member>
+        <member name="F:port25.pmta.api.submitter.Notify.Delay">
+            <summary>
+            Send a delivery notification if delivery is delayed.
+            </summary>
+        </member>
+        <member name="T:port25.pmta.api.submitter.Recipient">
+            <summary>
+            Represents a Recipient in a Message being submitted through PowerMTA's
+            submission API.
+            </summary>
+            <remarks>
+            For each Recipient a different notification mode may be set.
+            </remarks>
+        </member>
+        <member name="M:port25.pmta.api.submitter.Recipient.#ctor(System.String)">
+            <summary>
+            Creates a new Recipient with the given email address.
+            </summary>
+            <param name="email">
+            email address for the recipient. This must be a valid email 
+            address.
+            </param>
+            <exception cref="T:port25.pmta.api.submitter.EmailAddressException">
+            If the given address syntax is invalid.
+            </exception>
+        </member>
+        <member name="M:port25.pmta.api.submitter.Recipient.Equals(System.Object)">
+            <summary>
+            Checks if two Recipient objects are equal. 
+            </summary>
+            <param name="other">
+            The Recipient to compare with.
+            </param>
+            <returns>
+            True if <c>other</c> is a Recipient and has the same hash code
+            as this Recipient; false otherwise.
+            </returns>
+        </member>
+        <member name="M:port25.pmta.api.submitter.Recipient.GetHashCode">
+            <summary>
+            Calculates a hash code for this Recipient based on email address
+            and notification options.
+            </summary>
+            <returns>
+            This Recipient's hash code.
+            </returns>
+        </member>
+        <member name="M:port25.pmta.api.submitter.Recipient.ToString">
+            <summary>
+            Obtains a textual description of this Recipient.
+            </summary>
+            <returns>
+            Textual description of this Recipient.
+            </returns>
+        </member>
+        <member name="P:port25.pmta.api.submitter.Recipient.EmailAddress">
+            <summary>
+            Gets the email address set upon creation of this Recipient.
+            </summary>
+        </member>
+        <member name="P:port25.pmta.api.submitter.Recipient.Notify">
+            <summary>
+            Sets the kind of notification (report) desired for this recipient.
+            </summary>
+            <remarks>
+            By default, notification is only requested upon delivery failure.
+            Note that while PowerMTA does not support notification for delivery
+            delays, the corresponding <c>DSN</c> flag is passed on to the
+            receiving mailer, which may support it.
+            </remarks>
+            <value>
+            A notification can be requested for successful delivery, failed 
+            delivery, and delayed delivery. These can be combined by using
+            bit-wise combinations. 
+            For example,
+            <code>
+            Recipient r = new Recipient("me@here.com");
+            r.Notify = Notify.Failure | Notify.Delay;
+            </code>
+            asks for notification on falied delivery and on delayed delivery.
+            </value>
+        </member>
+        <member name="P:port25.pmta.api.submitter.Recipient.Item(System.String)">
+            <summary>
+            Defines a new mail merge variable for this Recipient.
+            </summary>
+            <remarks>
+            PowerMTA will substitute the variable for its value during delivery
+            of a mailmerge message.
+            </remarks>
+            <exception cref="T:port25.pmta.api.submitter.VariableSyntaxException">
+            When trying to set invalid variable content, for example, by not
+            providing an email address when setting <c>*from</c>.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            When trying to use set an invalid variable name.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            When trying set a variable twice.
+            </exception>
+        </member>
+        <member name="T:port25.pmta.api.submitter.ServiceException">
+            <summary>
+            Indicated a problem submitting a Message.
+            </summary>
+            <remarks>
+            Thrown on problems in a Connection, like the connected server
+            refusing messages.
+            </remarks>
+        </member>
+        <member name="M:port25.pmta.api.submitter.ServiceException.#ctor(System.String)">
+            <summary>
+            Creates this exception with the given message.
+            </summary>
+            <param name="msg">
+            Problem details.
+            </param>
+        </member>
+        <member name="M:port25.pmta.api.submitter.ServiceException.#ctor(System.String,port25.pmta.api.submitter.ServiceException)">
+            <summary>
+            Creates this exception with the given message and the given
+            root cause exception.
+            </summary>
+            <param name="msg">
+            Problem details.
+            </param>
+            <param name="rootCause">
+            The original exception if the caller of this constructor decides
+            to translate an exception it caught.
+            </param>
+        </member>
+        <member name="T:port25.pmta.api.submitter.SmtpSender">
+            <exclude/> from generated documentation since it's for internal use only
+            but one cannot mark interfaces as internal in C#.
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
+        <member name="M:port25.pmta.api.submitter.SmtpSender.SendCommand(System.String)">
+            <summary>
+            Sends an SMTP command.
+            </summary>
+            <param name="command">
+            SMTP command to send.
+            </param>
+        </member>
+        <member name="M:port25.pmta.api.submitter.SmtpSender.SendData(System.Byte[])">
+            <summary>
+            Sends a byte array of data.
+            </summary>
+            <param name="data">
+            What to send.
+            </param>
+        </member>
+        <member name="M:port25.pmta.api.submitter.SmtpSender.CheckReply">
+            <summary>
+            Checks that the last command resulted in a non-error reply from
+            PowerMTA.
+            </summary>
+        </member>
+        <member name="T:port25.pmta.api.submitter.SmtpSocketSender">
+            <exclude/> from generated documentation since it's for internal use only
+            but one cannot mark interfaces as internal in C#.
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
+        <member name="M:port25.pmta.api.submitter.SmtpSocketSender.Connect(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            Connects to the given host at the given port.
+            Uses the given credentials for authentication. 
+            Does not do authentication if password or username are <c>null</c>.
+            </summary>
+            <param name="host">
+            Host name or numeric IP address to connect to.
+            </param>
+            <param name="port">
+            Port to which to connect; usually PowerMTA runs on the default
+            SMTP port, 25.
+            </param>
+            <param name="username">
+            User name for authentication or <c>null</c> for unauthenticated
+            access.</param>
+            <param name="password">
+            Password for authentication.
+            </param>
+        </member>
+        <member name="M:port25.pmta.api.submitter.SmtpSocketSender.Close">
+            <summary>
+            Closes the socket connection opened in <c>Connect</c>.
+            </summary>
+        </member>
+        <member name="M:port25.pmta.api.submitter.TcpClientWrapper.Finalize">
+            <summary>
+            Destroys the Wrapper after trying to close the connection
+            by sending the SMTP QUIT.
+            </summary>
+        </member>
+        <member name="T:port25.pmta.api.submitter.VariableSyntaxException">
+            <summary>
+            Indicates a syntax error when defining a Recipient's variable.
+            </summary>
+            <remarks>
+            The variable syntax depends on the variable being set.
+            For example, when setting *from the variable content must be an email
+            address.
+            </remarks>
+        </member>
+    </members>
+</doc>

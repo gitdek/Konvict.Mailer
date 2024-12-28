@@ -1,0 +1,75 @@
+<html dir="LTR">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+    <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+    <title>Message.AddMergeData Method (Byte[])</title>
+    <xml>
+    </xml>
+    <link rel="stylesheet" type="text/css" href="MSDN.css" />
+  </head>
+  <body id="bodyID" class="dtBODY">
+    <div id="nsbanner">
+      <div id="bannerrow1">
+        <table class="bannerparthead" cellspacing="0">
+          <tr id="hdr">
+            <td class="runninghead">PowerMTA .NET API documentation</td>
+            <td class="product">
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div id="TitleRow">
+        <h1 class="dtH1">Message.AddMergeData Method (Byte[])</h1>
+      </div>
+    </div>
+    <div id="nstext">
+      <p> Appends merge data to this message. </p>
+      <div class="syntax">public <a href="ms-help://MS.NETFrameworkSDKv1.1/cpref/html/frlrfSystemVoidClassTopic.htm">void</a> AddMergeData(<br />   <a href="ms-help://MS.NETFrameworkSDKv1.1/cpref/html/frlrfSystemByteClassTopic.htm">byte[]</a> <i>data</i><br />);</div>
+      <h4 class="dtH4">Parameters</h4>
+      <dl>
+        <dt>
+          <i>data</i>
+        </dt>
+        <dd> Data to append. </dd>
+      </dl>
+      <h4 class="dtH4">Remarks</h4>
+      <p> Use this method to give this message both its headers and a body. How the data you add is handled depends on the kind of encoding selected (<a href="port25.pmta.api.submitter.Message.Encoding.html">Encoding</a>). Currently only 7-bit and 8-bit encodings are supported. If any mailmerge variables are included in the data, they will be substituted by their respective values. </p>
+      <h4 class="dtH4">Exceptions</h4>
+      <div class="tablediv">
+        <table class="dtTABLE" cellspacing="0">
+          <tr valign="top">
+            <th width="50%">Exception Type</th>
+            <th width="50%">Condition</th>
+          </tr>
+          <tr valign="top">
+            <td width="50%">
+              <a href="ms-help://MS.NETFrameworkSDKv1.1/cpref/html/frlrfSystemInvalidOperationExceptionClassTopic.htm">InvalidOperationException</a>
+            </td>
+            <td width="50%"> If the current encoding is neither 7 nor 8 bit. </td>
+          </tr>
+        </table>
+      </div>
+      <h4 class="dtH4">See Also</h4>
+      <p>
+        <a href="port25.pmta.api.submitter.Message.html">Message Class</a> | <a href="port25.pmta.api.submitter.html">port25.pmta.api.submitter Namespace</a> | <a href="port25.pmta.api.submitter.Message.AddMergeData_overloads.html">Message.AddMergeData Overload List</a></p>
+      <object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e" viewastext="true" style="display: none;">
+        <param name="Keyword" value="AddMergeData method">
+        </param>
+        <param name="Keyword" value="AddMergeData method, Message class">
+        </param>
+        <param name="Keyword" value="Message.AddMergeData method">
+        </param>
+      </object>
+      <hr />
+      <div id="footer">
+        <p>
+          <a href="mailto:manuals@port25.com?subject=PowerMTA%20.NET%20API%20documentation%20Documentation%20Feedback:%20Message.AddMergeData Method (Byte[])">Send comments on this topic.</a>
+        </p>
+        <p>
+          <a href="http://www.port25.com">Copyright 2007, Port25 Solutions. All rights reserved</a>
+        </p>
+        <p>Generated from assembly port25.pmta.api.submitter [1.0.0.0]</p>
+      </div>
+    </div>
+  </body>
+</html>

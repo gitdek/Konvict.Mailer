@@ -1,0 +1,48 @@
+MacroEx - macro builder engine for Konvict
+
+
+--------------------------------------------------------------------------------
+current
+--------------------------------------------------------------------------------
+New Features:
+    * more compression and decompression helpers
+      DeflateCompress, DeflateDecompress
+       eg. $WriteFile(c:\main_deflate.c, $DeflateCompress($Exec(cat main.c))
+       
+    * cache of DownloadData optionally
+       eg. $DownloadData(<refresh:20m>http://domain/)
+       
+    * initialization attribute for use with any macro
+       eg. $DownloadData(<Init>http://domain/subjects.txt)
+    
+    * execute process
+       declaration: Exec [filename],[arguments],([timeout]),([redirectOutput])
+       eg. $Exec("cat", "test.c", 0, $WriteFile("redirected.test.c", $Exec(echo %TEMP%)))
+       
+    * write file with various coding support
+       declation: WriteFile [filename], [contents]
+       encoding name enclosed in <> optionally
+       eg. $WriteFile(<UTF8>c:\file.txt, $Exec(echo %TEMP%))
+      
+    * grep implementation
+       declaration: $Grep [-ismqleEt?] [-r replacePattern] pattern [files [files ...]]
+       
+    * fast parse string
+       eg. $ParseBetween(baseString, startString, endString)
+       
+    * conversion of remote resource images
+       declaration: ConvertAllEmbedded [url], ([action])
+       action: batch image manipulation using algorithms available in ImageUtil lib.
+       eg. $ConvertAllEmbedded(http://www.incentaclick.com/h24e9/, reduce_quality)
+       
+    
+    
+--------------------------------------------------------------------------------
+Version 0.5 (2009-04-9)
+--------------------------------------------------------------------------------
+
+   - fixed cyclic macro bug
+   - fixed target invocation problems
+   - some portability fixes
+   - implemented new logger interface
+   - cleaned up deprecated interfaces

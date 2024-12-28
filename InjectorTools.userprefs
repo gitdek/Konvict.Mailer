@@ -1,0 +1,17 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Injector/Campaign/Campaign.cs">
+    <Files>
+      <File FileName="Injector/MacroEx/BasicMacros.cs" Line="107" Column="10" />
+      <File FileName="Injector/MacroEx/MacroManager.cs" Line="16" Column="3" />
+      <File FileName="Injector/MacroEx/MacroSuiteBuilder.cs" Line="20" Column="51" />
+      <File FileName="Injector/Campaign/Message.cs" Line="224" Column="28" />
+      <File FileName="Injector/Campaign/Campaign.cs" Line="1909" Column="17" />
+      <File FileName="Injector/MacroEx/MacroInterpreter.cs" Line="94" Column="27" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

@@ -1,0 +1,15 @@
+Konvict - Installation
+
+--------------------------------------------------------------------------------
+Prerequisites
+--------------------------------------------------------------------------------
+
+	* .NET 3.5 - http://download.microsoft.com/download/6/0/f/60fc5854-3cb8-4892-b6db-bd4f42510f28/dotnetfx35.exe
+	* PuTTY - http://the.earth.li/~sgtatham/putty/latest/x86/putty-0.60-installer.exe
+	
+		- Click 'Generate'
+		- Save public key -> Save it as pub.key
+		- Save private key -> Click 'Yes' on the prompt.
+		
+	
+	

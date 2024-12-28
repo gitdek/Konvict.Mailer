@@ -1,0 +1,102 @@
+Konvict - todo list
+
+--------------------------------------------------------------------------------
+(2009-05-24)
+--------------------------------------------------------------------------------
+   - Need to define which IP's Klocal can use, do we put this in GUI?
+   - Possibly throw Macro engine into seperate project so each class
+     implementing it can be invoked without TargetInvocationException
+	 
+
+   
+   
+   
+
+
+
+--------------------------------------------------------------------------------
+(2009-05-07)
+--------------------------------------------------------------------------------
+   - *done: Go back to old style of Campaign ID and Message ID
+   - Use the message source from GUI if selected to do so.
+   - *done: Implement CampaignCollection.cs/CampaignManager.cs
+   - Create temporary copies of each recipient list, and process the supression
+     when the campaign is started. Then alter the recipientProvider's filename.
+   - Implement scheduling of PollItem. This is a much smarter method for
+     processing tasks like this.
+   - Modify the lvCampaign so it shows the status of the campaign. We need the
+     statistics timer to read the status of a campaign, to know the next time
+     it is to be ran, if it is running, etc.
+     * This should be a method in CampaignManager.cs, 
+     eg. public DataGrid[] GetRunningCampaigns 
+     OR 
+     public IList<Campaign> GetRunningCampaigns
+   - Implement remote campaign management database functions!
+
+
+--------------------------------------------------------------------------------
+(2009-05-05)
+--------------------------------------------------------------------------------
+   - Throttling class needs to be designed from the ground up.
+   - Work on scheduling a bit, vague but it needs better way of showing on gui
+   - Analysis; many ways to go about this. Need to decide what exactly will be
+	   displayed, if it should be done in a seperate app space, or Konvict should
+	   handle it in the polling, or should it be a mandatory poll item?
+   - Maybe seperate class for KLocal, so we don't bloat Campaign.
+   - *fixed: Work on KLocal Daemon. Sometimes the DNS fails, only with my VM so
+     far, probably because of the way it's setup.
+
+	 
+	 
+	 
+	 
+--------------------------------------------------------------------------------
+(2009-04-19)
+--------------------------------------------------------------------------------
+   - *fixed: it's appending to the domain list like a billion times.
+     the domain list was like 2million in size after using konvict a few times.
+   - *done: implement task scheduling. still looking for very best way to show on gui.
+   - rename, duplicate campaign and messages. import campaign, the button
+     already exists, but it is not functional.
+   - *done: compress(+encrypt) serialized campaign data.
+   
+   - something neat in docs: http://174.37.141.226:8080/getlocalips
+   - get the queue info of a domain: http://174.37.141.226:8080/listqueue?format=xml&queue=yahoo.com/*
+   - i think i'll go with ssh over http :)
+   
+   
+--------------------------------------------------------------------------------
+(2009-04-17)
+--------------------------------------------------------------------------------
+
+   - macro to grab random item from array. specifically this is needed for use
+     of a random domain in the message body.
+   - remove the static generation of boundary. a good example:
+     boundary="aCAMP_IDa[id]a[list_id]a[listTDL_id]a"
+
+   - 'format urls' dialog. the way permicity works, it saves all the images
+     from the 'redirect url' to the webserver, and it creates the redirect
+     with the directory structure and all. it does this before mailing
+     begins. I was going to attempt to embed all the images, but I think
+     it is not possible. the solution is to write a php script which can
+     interpret commands and receive images from konvict, so it can setup
+     the redirect.
+      <a href="http://HOSTNAME/XXX/CAMP_ID/[id]/[list_id]/[listTDL_id]/"><img src="http://HOSTNAME/XXX/CAMP_ID/[id]/[list_id]/[listTDL_id]/" border=0></a>
+     
+   - richtextcontrol for html body editing. extremely low priority.
+
+     
+   - supression list. note: process it before mailing.
+   - recipient list 'drop size'. [start_line],[send_amount]
+     '2500,100000' will start at line 2,500, and send to 100,000 people.
+   
+   
+--------------------------------------------------------------------------------
+(2009-04-9)
+--------------------------------------------------------------------------------
+
+   - grab statistics from server web gui, can request xml as output.
+     permicity uses 'ssh server.com sudo /usr/sbin/pmta show status'
+     we can probably get all the exact same info from the web gui in
+     any format we like.
+   - dialog to modify mta config, and then commit changes to the server.

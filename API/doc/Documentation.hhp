@@ -1,0 +1,76 @@
+[FILES]
+port25.pmta.api.submitter.html
+port25.pmta.api.submitterHierarchy.html
+port25.pmta.api.submitter.Connection.html
+port25.pmta.api.submitter.ConnectionMembers.html
+port25.pmta.api.submitter.ConnectionConstructor.html
+port25.pmta.api.submitter.ConnectionConstructor1.html
+port25.pmta.api.submitter.ConnectionConstructor2.html
+port25.pmta.api.submitter.ConnectionMethods.html
+port25.pmta.api.submitter.Connection.Close.html
+port25.pmta.api.submitter.Connection.Submit.html
+port25.pmta.api.submitter.EmailAddressException.html
+port25.pmta.api.submitter.EmailAddressExceptionMembers.html
+port25.pmta.api.submitter.EmailAddressExceptionProperties.html
+port25.pmta.api.submitter.EmailAddressException.EmailAddress.html
+port25.pmta.api.submitter.Encoding.html
+port25.pmta.api.submitter.Message.html
+port25.pmta.api.submitter.MessageMembers.html
+port25.pmta.api.submitter.MessageConstructor.html
+port25.pmta.api.submitter.MessageProperties.html
+port25.pmta.api.submitter.Message.Encoding.html
+port25.pmta.api.submitter.Message.EnvID.html
+port25.pmta.api.submitter.Message.JobID.html
+port25.pmta.api.submitter.Message.ReturnType.html
+port25.pmta.api.submitter.Message.Verp.html
+port25.pmta.api.submitter.Message.VirtualMTA.html
+port25.pmta.api.submitter.MessageMethods.html
+port25.pmta.api.submitter.Message.AddData_overloads.html
+port25.pmta.api.submitter.Message.AddData_overload_1.html
+port25.pmta.api.submitter.Message.AddData_overload_2.html
+port25.pmta.api.submitter.Message.AddDateHeader.html
+port25.pmta.api.submitter.Message.AddMergeData_overloads.html
+port25.pmta.api.submitter.Message.AddMergeData_overload_2.html
+port25.pmta.api.submitter.Message.AddMergeData_overload_1.html
+port25.pmta.api.submitter.Message.AddRecipient.html
+port25.pmta.api.submitter.Message.BeginPart.html
+port25.pmta.api.submitter.Notify.html
+port25.pmta.api.submitter.Recipient.html
+port25.pmta.api.submitter.RecipientMembers.html
+port25.pmta.api.submitter.RecipientConstructor.html
+port25.pmta.api.submitter.RecipientProperties.html
+port25.pmta.api.submitter.Recipient.EmailAddress.html
+port25.pmta.api.submitter.Recipient.Item.html
+port25.pmta.api.submitter.Recipient.Notify.html
+port25.pmta.api.submitter.RecipientMethods.html
+port25.pmta.api.submitter.Recipient.Equals.html
+port25.pmta.api.submitter.Recipient.GetHashCode.html
+port25.pmta.api.submitter.Recipient.ToString.html
+port25.pmta.api.submitter.ReturnType.html
+port25.pmta.api.submitter.ServiceException.html
+port25.pmta.api.submitter.ServiceExceptionMembers.html
+port25.pmta.api.submitter.ServiceExceptionConstructor.html
+port25.pmta.api.submitter.ServiceExceptionConstructor1.html
+port25.pmta.api.submitter.ServiceExceptionConstructor2.html
+port25.pmta.api.submitter.VariableSyntaxException.html
+port25.pmta.api.submitter.VariableSyntaxExceptionMembers.html
+
+[OPTIONS]
+Title=Documentation
+Auto Index=Yes
+Binary TOC=Yes
+Compatibility=1.1 or later
+Compiled file=Documentation.chm
+Default Window=MsdnHelp
+Default topic=port25.pmta.api.submitter.html
+Display compile progress=No
+Error log file=Documentation.log
+Full-text search=Yes
+Index file=Documentation.hhk
+Language=0x409 English (United States)
+Contents file=Documentation.hhc
+
+[WINDOWS]
+MsdnHelp="Documentation Help","Documentation.hhc","Documentation.hhk","port25.pmta.api.submitter.html","port25.pmta.api.submitter.html",,,,,0x62520,220,0x387e,[86,51,872,558],,,,,,,0
+
+[INFOTYPES]

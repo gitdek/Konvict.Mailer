@@ -1,0 +1,21 @@
+Konvict - redirect / tracking
+
+--------------------------------------------------------------------------------
+(Macros)
+--------------------------------------------------------------------------------
+   - Tracking macro's are in a different format from the normal macros.
+   - All tracking macros are in the format of "[name]".
+   - Use [fromdomain] for the current domain used when sending, or
+     you can optionally use $RandomDomain() in it's place.
+
+--------------------------------------------------------------------------------
+(Format)
+--------------------------------------------------------------------------------
+
+Redirect Format:
+
+http://[fromdomain]/[user_id]/[camp_id]/[list_id]/[msg_id]/[subj_id]/
+
+Tracking an open:
+
+http://[fromdomain]/[user_id]/[camp_id]/[list_id]/[msg_id]/[subj_id]/o/

@@ -1,0 +1,59 @@
+<html dir="LTR">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=Windows-1252" />
+    <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
+    <title>Encoding Property</title>
+    <xml>
+    </xml>
+    <link rel="stylesheet" type="text/css" href="MSDN.css" />
+  </head>
+  <body id="bodyID" class="dtBODY">
+    <div id="nsbanner">
+      <div id="bannerrow1">
+        <table class="bannerparthead" cellspacing="0">
+          <tr id="hdr">
+            <td class="runninghead">PowerMTA .NET API documentation</td>
+            <td class="product">
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div id="TitleRow">
+        <h1 class="dtH1">Message.Encoding Property</h1>
+      </div>
+    </div>
+    <div id="nstext">
+      <p> Sets the kind of encoding to perform on data. The encoding applies to all thereafter added data. </p>
+      <div class="syntax">public <a href="port25.pmta.api.submitter.Encoding.html">Encoding</a> Encoding {get; set;}</div>
+      <p>
+      </p>
+      <h4 class="dtH4">Property Value</h4>
+      <p>
+            <p>The actual processing performed depends on the encoding selected: <a href="port25.pmta.api.submitter.Encoding.html">SevenBit</a> and <a href="port25.pmta.api.submitter.Encoding.html">EightBit</a> both select the <i>identity</i> encoding, i.e., no transformation is performed on the data, except that any lines terminated with LF alone are converted to CRLF. In the case of 7-bit encoding, it is your responsibility to ensure that all bytes have their high bit off. </p>
+            <p><a href="port25.pmta.api.submitter.Encoding.html">Base64</a> specifies that anydata added shall be encoded on the fly using base-64 encoding. No transformation is performed on the data prior to encoding, making it possible to transmit binary content. Note, however, that to effectively transmit binary data, you must also provide the appropriate MIME headers. In fact, the selected encoding should, in general, agree with the <code>Content-Transfer-Encoding</code> header you specify. </p> 
+            <p>The default encooding (if this method is never invoked) is <b>SevenBit</b>. </p>
+            </p>
+      <h4 class="dtH4">See Also</h4>
+      <p>
+        <a href="port25.pmta.api.submitter.Message.html">Message Class</a> | <a href="port25.pmta.api.submitter.html">port25.pmta.api.submitter Namespace</a></p>
+      <object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e" viewastext="true" style="display: none;">
+        <param name="Keyword" value="Encoding property">
+        </param>
+        <param name="Keyword" value="Encoding property, Message class">
+        </param>
+        <param name="Keyword" value="Message.Encoding property">
+        </param>
+      </object>
+      <hr />
+      <div id="footer">
+        <p>
+          <a href="mailto:manuals@port25.com?subject=PowerMTA%20.NET%20API%20documentation%20Documentation%20Feedback:%20Message.Encoding%20Property&#xD;&#xA;						">Send comments on this topic.</a>
+        </p>
+        <p>
+          <a href="http://www.port25.com">Copyright 2007, Port25 Solutions. All rights reserved</a>
+        </p>
+        <p>Generated from assembly port25.pmta.api.submitter [1.0.0.0]</p>
+      </div>
+    </div>
+  </body>
+</html>
