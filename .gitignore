@@ -37,8 +37,9 @@ msbuild.wrn
 .vs/
 
 _UpgradeReport_Files/
-Backup*/
+Backup1/
 UpgradeLog.XML
 *.txt
 *.png
 Backup/
+UpgradeLog.XML
